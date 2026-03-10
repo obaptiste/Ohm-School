@@ -31,8 +31,14 @@ async function main() {
       }});
       for (const option of node.options) {
         await prisma.decisionOption.create({ data: {
-          nodeId: createdNode.id, label: option.label, value: option.value, nextNodeKey: option.nextNodeKey,
-          scoreModifier: 0, faultWeightAdjustments: option.faultWeightAdjustments ?? {}
+          nodeId: createdNode.id,
+          label: option.label,
+          value: option.value,
+          nextNodeKey: option.nextNodeKey,
+          scoreModifier: 0,
+          riskBoost: option.riskBoost ?? 0,
+          urgentTrigger: option.urgentTrigger ?? false,
+          faultWeightAdjustments: option.faultWeightAdjustments ?? {}
         }});
       }
     }
