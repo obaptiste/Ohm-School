@@ -8,8 +8,13 @@ const severityClass: Record<string, string> = {
   urgent: "bg-red-100 text-red-800"
 };
 
-export default function FaultDetailPage({ params }: { params: { faultSlug: string } }) {
-  const fault = faults.find((f) => f.slug === params.faultSlug);
+interface PageProps {
+  params: Promise<{ faultSlug: string }>;
+}
+
+export default async function FaultDetailPage({ params }: PageProps) {
+  const { faultSlug } = await params;
+  const fault = faults.find((f) => f.slug === faultSlug);
   if (!fault) return <Alert>Fault not found.</Alert>;
 
   return (

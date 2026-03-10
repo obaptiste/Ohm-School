@@ -9,9 +9,15 @@ export default function HomePage() {
         <p className="text-lg text-workshop-700">Learn domestic fault-finding logic for UK electrical installations</p>
       </section>
       <section className="flex flex-wrap gap-3">
-        <Link href="/diagnose"><Button>Start diagnosis</Button></Link>
-        <Link href="/library"><Button className="bg-workshop-700">Explore fault library</Button></Link>
-        <Link href="/tutor"><Button className="bg-workshop-700">Tutor view</Button></Link>
+        <Link href="/diagnose" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-workshop-900 rounded">
+          <Button>Start diagnosis</Button>
+        </Link>
+        <Link href="/library" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-workshop-900 rounded">
+          <Button className="bg-workshop-700">Explore fault library</Button>
+        </Link>
+        <Link href="/tutor" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-workshop-900 rounded">
+          <Button className="bg-workshop-700">Tutor view</Button>
+        </Link>
       </section>
       <Alert>
         Educational and triage-oriented only. Never remove covers, work live, bypass protective devices, or carry out invasive testing unless competent and qualified.

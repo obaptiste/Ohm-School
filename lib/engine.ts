@@ -2,6 +2,13 @@ import { DecisionTree, Severity } from "./types";
 
 export type AnswerMap = Record<string, string | string[]>;
 
+/**
+ * Runs diagnostic inference on a decision tree based on user answers.
+ * Scores likely causes based on weighted adjustments and determines risk level.
+ * @param tree - The decision tree to run inference on
+ * @param answers - User answers mapped by node key
+ * @returns Object containing likely causes, risk level, and escalation flag
+ */
 export function runInference(tree: DecisionTree, answers: AnswerMap) {
   const scores: Record<string, number> = {};
   let risk = 0;

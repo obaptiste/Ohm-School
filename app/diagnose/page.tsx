@@ -8,7 +8,11 @@ export default function DiagnosePage() {
       <h1 className="text-2xl font-bold">Choose a symptom</h1>
       <div className="grid gap-3 md:grid-cols-2">
         {symptoms.map((symptom) => (
-          <Link key={symptom.slug} href={`/diagnose/${symptom.slug}`}>
+          <Link
+            key={symptom.slug}
+            href={`/diagnose/${symptom.slug}`}
+            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-workshop-900 rounded"
+          >
             <Card className="h-full transition hover:border-workshop-700">
               <h2 className="font-semibold">{symptom.title}</h2>
               <p className="text-sm text-workshop-700">Start a safe, guided logic path.</p>

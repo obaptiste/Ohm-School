@@ -1,5 +1,6 @@
 import { DecisionTree, Fault } from "./types";
 
+/** Initial symptoms that users can select to begin diagnosis */
 export const symptoms = [
   "MCB trips under load",
   "RCD trips immediately",
@@ -18,6 +19,14 @@ export const symptoms = [
   "Damaged cable / exposed cores / unenclosed connection"
 ].map((title) => ({ title, slug: title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") }));
 
+/**
+ * Helper function to create a fault object with standard educational guidance.
+ * @param slug - URL-friendly identifier for the fault
+ * @param title - Display title of the fault
+ * @param severity - Risk level (low, medium, high, urgent)
+ * @param tags - Categorization tags for the fault
+ * @returns Complete Fault object with standard educational content
+ */
 const mk = (slug: string, title: string, severity: Fault["severity"], tags: string[]): Fault => ({
   slug,
   title,
