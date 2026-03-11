@@ -15,9 +15,14 @@ model Fault {
   description        String
   severity           String
   dangerNotes        String
+  commonSymptoms     Json
   likelyCauses       Json
   safeChecks         Json
+  escalationRules    Json
+  escalationGuidance String
+  educationalExplanation String
   electricianTestsNext Json
+  relatedFaultSlugs  String[]
   tags               String[]
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
@@ -62,6 +67,8 @@ model DecisionOption {
   value                  String
   nextNodeKey            String?
   scoreModifier          Int      @default(0)
+  riskBoost              Int      @default(0)
+  urgentTrigger          Boolean  @default(false)
   faultWeightAdjustments Json
   node                   DecisionNode @relation(fields: [nodeId], references: [id], onDelete: Cascade)
 }

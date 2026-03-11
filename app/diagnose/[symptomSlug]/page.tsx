@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Alert, Badge, Button, Card, Progress } from "@/components/ui";
 import { decisionTrees, learningArticles, symptoms } from "@/lib/content";
-import { runInference } from "@/lib/engine";
+import { chooseNextQuestion, runInference } from "@/lib/engine";
 import { answerSchema } from "@/lib/validation";
 
 const severityClass: Record<string, string> = {
@@ -32,8 +32,9 @@ export default function SymptomFlowPage({ params }: { params: { symptomSlug: str
     if (!node) return;
     const parsed = answerSchema.safeParse({ nodeKey: node.key, value });
     if (!parsed.success) return;
-    setAnswers((prev) => ({ ...prev, [node.key]: parsed.data.value }));
-    setCurrentKey(nextNodeKey);
+    const nextAnswers = { ...answers, [node.key]: parsed.data.value };
+    setAnswers(nextAnswers);
+    setCurrentKey(nextNodeKey ?? chooseNextQuestion(tree, node.key, nextAnswers, parsed.data.value));
   };
 
   if (complete && result) {
@@ -43,8 +44,11 @@ export default function SymptomFlowPage({ params }: { params: { symptomSlug: str
         <h1 className="text-2xl font-bold">Result: {symptom.title}</h1>
         <Badge className={severityClass[result.riskLevel]}>{result.riskLevel === "medium" ? "caution" : result.riskLevel}</Badge>
         <Card>
-          <h2 className="font-semibold">Top likely causes</h2>
-          <ol className="list-decimal pl-5 text-sm">{result.likelyCauses.map((c) => <li key={c}>{c}</li>)}</ol>
+          <h2 className="font-semibold">Hybrid diagnostic result</h2>
+          <p className="text-sm"><strong>Top likely fault:</strong> {result.topLikelyFault ?? "insufficient evidence"}</p>
+          <p className="text-sm"><strong>Alternative possibilities:</strong> {result.alternatives.length ? result.alternatives.join(", ") : "none identified"}</p>
+          <p className="text-sm"><strong>Confidence:</strong> {result.confidenceLevel}</p>
+          <p className="text-sm"><strong>Risk level:</strong> {result.riskLevel}</p>
         </Card>
         <Card>
           <h2 className="font-semibold">Safe next checks</h2>
@@ -55,8 +59,8 @@ export default function SymptomFlowPage({ params }: { params: { symptomSlug: str
           </ul>
         </Card>
         <Card>
-          <h2 className="font-semibold">Why this conclusion</h2>
-          <p className="text-sm">Your answers increased weightings for the listed causes and triggered independent risk logic for escalation markers such as heat, damage, or repeated tripping.</p>
+          <h2 className="font-semibold">Why these results were chosen</h2>
+          <ul className="list-disc pl-5 text-sm">{result.whyChosen.map((reason) => <li key={reason}>{reason}</li>)}</ul>
         </Card>
         <Alert>{result.escalation ? "Call a qualified electrician now." : "Safe to continue observing for now; escalate if symptoms worsen."}</Alert>
         {related.length > 0 && (
