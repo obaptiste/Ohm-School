@@ -17,7 +17,7 @@ async function main() {
     await prisma.fault.create({ data: {
       slug: fault.slug, title: fault.title, summary: fault.summary, description: fault.description, severity: fault.severity,
       dangerNotes: fault.dangerNotes, commonSymptoms: fault.commonSymptoms, likelyCauses: fault.likelyCauses, safeChecks: fault.safeChecks, escalationRules: fault.escalationRules, escalationGuidance: fault.escalationGuidance, educationalExplanation: fault.educationalExplanation, electricianTestsNext: fault.electricianTestsNext, relatedFaultSlugs: fault.relatedFaultSlugs, tags: fault.tags
-    }});
+    } as any});
   }
   for (const symptom of symptoms) await prisma.symptom.create({ data: { ...symptom, description: "Initial diagnostic symptom" } });
   for (const article of learningArticles) await prisma.learningArticle.create({ data: article });
@@ -39,7 +39,7 @@ async function main() {
           riskBoost: option.riskBoost ?? 0,
           urgentTrigger: option.urgentTrigger ?? false,
           faultWeightAdjustments: option.faultWeightAdjustments ?? {}
-        }});
+        } as any});
       }
     }
   }

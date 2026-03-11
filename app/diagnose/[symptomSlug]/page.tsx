@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { Alert, Badge, Button, Card, Progress } from "@/components/ui";
 import { decisionTrees, learningArticles, symptoms } from "@/lib/content";
 import { chooseNextQuestion, runInference } from "@/lib/engine";
@@ -14,9 +15,11 @@ const severityClass: Record<string, string> = {
   urgent: "bg-red-100 text-red-800"
 };
 
-export default function SymptomFlowPage({ params }: { params: { symptomSlug: string } }) {
-  const symptom = symptoms.find((s) => s.slug === params.symptomSlug);
-  const tree = decisionTrees.find((t) => t.symptomSlug === params.symptomSlug);
+export default function SymptomFlowPage() {
+  const params = useParams<{ symptomSlug: string }>();
+  const symptomSlug = params?.symptomSlug;
+  const symptom = symptoms.find((s) => s.slug === symptomSlug);
+  const tree = decisionTrees.find((t) => t.symptomSlug === symptomSlug);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [currentKey, setCurrentKey] = useState(tree?.startNodeKey);
 
