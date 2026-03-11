@@ -1,0 +1,62 @@
+[
+  {
+    "title": "MCB trips under load",
+    "slug": "mcb-trips-under-load"
+  },
+  {
+    "title": "RCD trips immediately",
+    "slug": "rcd-trips-immediately"
+  },
+  {
+    "title": "RCBO trips on one circuit",
+    "slug": "rcbo-trips-one-circuit"
+  },
+  {
+    "title": "Some sockets dead, others live",
+    "slug": "partial-socket-failure"
+  },
+  {
+    "title": "Whole socket circuit dead",
+    "slug": "whole-socket-circuit-dead"
+  },
+  {
+    "title": "Lights not working on one floor",
+    "slug": "partial-lighting-failure"
+  },
+  {
+    "title": "Lights flicker or dim",
+    "slug": "lights-flicker-under-load"
+  },
+  {
+    "title": "Socket or switch feels hot / shows burn marks",
+    "slug": "hot-socket-or-switch"
+  },
+  {
+    "title": "Appliance causes trip when plugged in",
+    "slug": "appliance-causes-trip"
+  },
+  {
+    "title": "Two-way switching behaves strangely",
+    "slug": "two-way-switching-miswire"
+  },
+  {
+    "title": "Low insulation resistance suspected",
+    "slug": "low-insulation-resistance"
+  },
+  {
+    "title": "Loose connection / overheating suspected",
+    "slug": "loose-connection-high-resistance-joint"
+  },
+  {
+    "title": "Borrowed neutral suspected",
+    "slug": "borrowed-neutral"
+  },
+  {
+    "title": "Broken ring final suspected",
+    "slug": "broken-ring-final"
+  },
+  {
+    "title": "Damaged cable / exposed cores / unenclosed connection",
+    "slug": "damaged-cable-or-unenclosed-connection"
+  }
+]
