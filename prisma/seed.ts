@@ -16,7 +16,7 @@ async function main() {
   for (const fault of faults) {
     await prisma.fault.create({ data: {
       slug: fault.slug, title: fault.title, summary: fault.summary, description: fault.description, severity: fault.severity,
-      dangerNotes: fault.dangerNotes, likelyCauses: fault.likelyCauses, safeChecks: fault.safeChecks, electricianTestsNext: fault.electricianTestsNext, tags: fault.tags
+      dangerNotes: fault.dangerNotes, commonSymptoms: fault.commonSymptoms, likelyCauses: fault.likelyCauses, safeChecks: fault.safeChecks, escalationRules: fault.escalationRules, escalationGuidance: fault.escalationGuidance, educationalExplanation: fault.educationalExplanation, electricianTestsNext: fault.electricianTestsNext, relatedFaultSlugs: fault.relatedFaultSlugs, tags: fault.tags
     }});
   }
   for (const symptom of symptoms) await prisma.symptom.create({ data: { ...symptom, description: "Initial diagnostic symptom" } });
