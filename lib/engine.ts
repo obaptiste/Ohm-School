@@ -94,11 +94,17 @@ export function chooseNextQuestion(
   if (!node) return undefined;
 
   const evaluatedAnswers = selectedAnswer ? [selectedAnswer] : toValues(answers[currentNodeKey]);
+  let selectedTerminalOption = false;
 
   for (const answer of evaluatedAnswers) {
     const option = getOption(node, answer);
     if (option?.nextNodeKey) return option.nextNodeKey;
+    if (option && !option.nextNodeKey) {
+      selectedTerminalOption = true;
+    }
   }
+
+  if (selectedTerminalOption) return undefined;
 
   return tree.nodes.find((candidate) => !answers[candidate.key])?.key;
 }
