@@ -90,7 +90,7 @@ export function chooseNextQuestion(
   answers: AnswerMap,
   selectedAnswer?: string
 ): string | undefined {
-  const node = tree.nodes.find((candidate) => candidate.key === currentNodeKey);
+  const node = tree.nodes.find((n) => n.key === currentNodeKey);
   if (!node) return undefined;
 
   const evaluatedAnswers = selectedAnswer ? [selectedAnswer] : toValues(answers[currentNodeKey]);

@@ -13,11 +13,8 @@ const severityTone: Record<Fault["severity"], "neutral" | "warning" | "danger"> 
 
 export default async function FaultDetailPage({ params }: { params: Promise<{ faultSlug: string }> }) {
   const { faultSlug } = await params;
-  const fault = faults.find((entry) => entry.slug === faultSlug);
-
-  if (!fault) {
-    return <Alert>Fault not found.</Alert>;
-  }
+  const fault = faults.find((f) => f.slug === faultSlug);
+  if (!fault) return <Alert>Fault not found.</Alert>;
 
   return (
     <div className="space-y-6">

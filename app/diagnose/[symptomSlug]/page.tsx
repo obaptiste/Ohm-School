@@ -39,7 +39,6 @@ export default function SymptomFlowPage() {
 
     const parsed = answerSchema.safeParse({ nodeKey: node.key, value });
     if (!parsed.success) return;
-
     const nextAnswers = { ...answers, [node.key]: parsed.data.value };
     setAnswers(nextAnswers);
     setCurrentKey(nextNodeKey ?? chooseNextQuestion(tree, node.key, nextAnswers, parsed.data.value));
