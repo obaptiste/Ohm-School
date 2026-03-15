@@ -33,15 +33,26 @@ async function main() {
         severity: node.severity, safetyGate: !!node.safetyGate, stopReason: node.stopReason, educationalNote: node.educationalNote, recommendedAction: node.recommendedAction
       }});
       for (const option of node.options) {
+        const scoreModifier: number =
+          "scoreModifier" in option && typeof option.scoreModifier === "number" ? option.scoreModifier : 0;
+        const riskBoost: number =
+          "riskBoost" in option && typeof option.riskBoost === "number" ? option.riskBoost : 0;
+        const urgentTrigger: boolean =
+          "urgentTrigger" in option && typeof option.urgentTrigger === "boolean" ? option.urgentTrigger : false;
+        const faultWeightAdjustments: Record<string, number> =
+          "faultWeightAdjustments" in option && option.faultWeightAdjustments && typeof option.faultWeightAdjustments === "object"
+            ? option.faultWeightAdjustments as Record<string, number>
+            : {};
+
         await prisma.decisionOption.create({ data: {
           nodeId: createdNode.id,
           label: option.label,
           value: option.value,
-          nextNodeKey: option.nextNodeKey,
-          scoreModifier: option.scoreModifier ?? 0,
-          riskBoost: option.riskBoost ?? 0,
-          urgentTrigger: option.urgentTrigger ?? false,
-          faultWeightAdjustments: option.faultWeightAdjustments ?? {}
+          nextNodeKey: "nextNodeKey" in option ? option.nextNodeKey ?? null : null,
+          scoreModifier,
+          riskBoost,
+          urgentTrigger,
+          faultWeightAdjustments
         } as any});
       }
     }
