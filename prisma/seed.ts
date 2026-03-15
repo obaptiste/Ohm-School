@@ -1,5 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { decisionTrees, faults, learningArticles, symptoms } from "../lib/content";
+import decisionTrees from "./fixtures/decision-trees.json";
+import faults from "./fixtures/faults.json";
+import symptoms from "./fixtures/symptoms.json";
+import { learningArticles } from "../lib/content";
 
 const prisma = new PrismaClient();
 
@@ -35,7 +38,7 @@ async function main() {
           label: option.label,
           value: option.value,
           nextNodeKey: option.nextNodeKey,
-          scoreModifier: 0,
+          scoreModifier: option.scoreModifier ?? 0,
           riskBoost: option.riskBoost ?? 0,
           urgentTrigger: option.urgentTrigger ?? false,
           faultWeightAdjustments: option.faultWeightAdjustments ?? {}
