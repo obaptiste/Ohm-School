@@ -1,7 +1,10 @@
+/** Risk severity levels for diagnostic outcomes */
 export type Severity = "low" | "medium" | "high" | "urgent";
 
+/** Question presentation types in decision trees */
 export type QuestionType = "single_choice" | "multi_choice" | "boolean" | "info";
 
+/** Decision option representing a single answer choice */
 export type DecisionOption = {
   label: string;
   value: string;
@@ -11,6 +14,7 @@ export type DecisionOption = {
   urgentTrigger?: boolean;
 };
 
+/** Decision tree node containing a question and multiple choice options */
 export type DecisionNode = {
   key: string;
   question: string;
@@ -24,6 +28,7 @@ export type DecisionNode = {
   educationalNote?: string;
 };
 
+/** Complete decision tree for one symptom */
 export type DecisionTree = {
   slug: string;
   title: string;
@@ -32,6 +37,7 @@ export type DecisionTree = {
   nodes: DecisionNode[];
 };
 
+/** Electrical fault with diagnostic and educational information */
 export type Fault = {
   slug: string;
   title: string;
