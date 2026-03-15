@@ -2,6 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-workshop-100 text-workshop-900;
+:root {
+  --bg: #f4ede3;
+  --paper: #fbf6f0;
+  --paper-strong: #fffdf9;
+  --ink: #171717;
+  --muted: #5f635f;
+  --line: rgba(30, 41, 59, 0.12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(197, 124, 61, 0.18), transparent 28%),
+      radial-gradient(circle at top right, rgba(31, 50, 84, 0.12), transparent 26%),
+      linear-gradient(180deg, #f8f2ea 0%, #f4ede3 45%, #efe5d8 100%);
+    color: var(--ink);
+    font-family: var(--font-body), sans-serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(23, 23, 23, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 23, 23, 0.04) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 80%);
+    opacity: 0.35;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  ::selection {
+    background: rgba(157, 83, 34, 0.18);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display), serif;
+  }
+
+  .hero-panel {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 2rem;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.16), transparent 26%),
+      linear-gradient(135deg, #14213a 0%, #21324a 28%, #7b3516 100%);
+    box-shadow: 0 30px 80px rgba(18, 26, 43, 0.22);
+  }
+
+  .hero-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+    opacity: 0.22;
+  }
+
+  .panel-dark {
+    background:
+      linear-gradient(180deg, rgba(8, 16, 31, 0.98), rgba(17, 26, 41, 0.96));
+    border-color: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
+
+  .card-interactive {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-interactive::after {
+    content: "";
+    position: absolute;
+    inset: auto -20% -55% 25%;
+    height: 180px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(193, 114, 59, 0.14), transparent 68%);
+    transition: transform 300ms ease;
+    transform: translateY(18px);
+  }
+
+  .card-interactive:hover::after {
+    transform: translateY(0);
+  }
+
+  .diagram-grid {
+    background-image:
+      linear-gradient(rgba(23, 23, 23, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 23, 23, 0.04) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
 }

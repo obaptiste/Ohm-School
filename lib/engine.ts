@@ -44,7 +44,7 @@ export function scoreFaultsFromAnswers(tree: DecisionTree, answers: AnswerMap): 
       Object.entries(option.faultWeightAdjustments ?? {}).forEach(([faultSlug, weight]) => {
         scores[faultSlug] = (scores[faultSlug] ?? 0) + weight;
         reasons[faultSlug] = reasons[faultSlug] ?? [];
-        reasons[faultSlug].push(`${node.question} → ${option.label} (${weight >= 0 ? "+" : ""}${weight})`);
+        reasons[faultSlug].push(`${node.question} -> ${option.label} (${weight >= 0 ? "+" : ""}${weight})`);
       });
     }
   }
@@ -60,7 +60,7 @@ export function detectUrgentEscalation(tree: DecisionTree, answers: AnswerMap) {
     for (const value of values) {
       const option = getOption(node, value);
       if (!option?.urgentTrigger) continue;
-      triggers.push(`${node.question} → ${option.label}`);
+      triggers.push(`${node.question} -> ${option.label}`);
     }
   }
 
@@ -111,7 +111,6 @@ export function buildResultSummary(tree: DecisionTree, answers: AnswerMap): Hybr
 
   const topLikelyFault = ranked[0]?.slug ?? null;
   const alternatives = ranked.slice(1, 3).map((entry) => entry.slug);
-
   const topScore = ranked[0]?.score ?? 0;
   const totalScore = ranked.reduce((acc, entry) => acc + Math.max(entry.score, 0), 0);
   const ratio = totalScore > 0 ? topScore / totalScore : 0;

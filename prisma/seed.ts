@@ -1,5 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { decisionTrees, faults, learningArticles, symptoms } from "../lib/content";
+import decisionTrees from "./fixtures/decision-trees.json";
+import faults from "./fixtures/faults.json";
+import symptoms from "./fixtures/symptoms.json";
+import { learningArticles } from "../lib/content";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +20,7 @@ async function main() {
     await prisma.fault.create({ data: {
       slug: fault.slug, title: fault.title, summary: fault.summary, description: fault.description, severity: fault.severity,
       dangerNotes: fault.dangerNotes, commonSymptoms: fault.commonSymptoms, likelyCauses: fault.likelyCauses, safeChecks: fault.safeChecks, escalationRules: fault.escalationRules, escalationGuidance: fault.escalationGuidance, educationalExplanation: fault.educationalExplanation, electricianTestsNext: fault.electricianTestsNext, relatedFaultSlugs: fault.relatedFaultSlugs, tags: fault.tags
-    }});
+    } as any});
   }
   for (const symptom of symptoms) await prisma.symptom.create({ data: { ...symptom, description: "Initial diagnostic symptom" } });
   for (const article of learningArticles) await prisma.learningArticle.create({ data: article });
@@ -30,19 +33,36 @@ async function main() {
         severity: node.severity, safetyGate: !!node.safetyGate, stopReason: node.stopReason, educationalNote: node.educationalNote, recommendedAction: node.recommendedAction
       }});
       for (const option of node.options) {
+        const scoreModifier: number =
+          "scoreModifier" in option && typeof option.scoreModifier === "number" ? option.scoreModifier : 0;
+        const riskBoost: number =
+          "riskBoost" in option && typeof option.riskBoost === "number" ? option.riskBoost : 0;
+        const urgentTrigger: boolean =
+          "urgentTrigger" in option && typeof option.urgentTrigger === "boolean" ? option.urgentTrigger : false;
+        const faultWeightAdjustments: Record<string, number> =
+          "faultWeightAdjustments" in option && option.faultWeightAdjustments && typeof option.faultWeightAdjustments === "object"
+            ? option.faultWeightAdjustments as Record<string, number>
+            : {};
+
         await prisma.decisionOption.create({ data: {
           nodeId: createdNode.id,
           label: option.label,
           value: option.value,
-          nextNodeKey: option.nextNodeKey,
-          scoreModifier: 0,
-          riskBoost: option.riskBoost ?? 0,
-          urgentTrigger: option.urgentTrigger ?? false,
-          faultWeightAdjustments: option.faultWeightAdjustments ?? {}
-        }});
+          nextNodeKey: "nextNodeKey" in option ? option.nextNodeKey ?? null : null,
+          scoreModifier,
+          riskBoost,
+          urgentTrigger,
+          faultWeightAdjustments
+        } as any});
       }
     }
   }
+
+  console.log(`Created ${faults.length} faults`);
+  console.log(`Created ${symptoms.length} symptoms`);
+  console.log(`Created ${learningArticles.length} learning articles`);
+  console.log(`Created ${decisionTrees.length} decision trees with all nodes and options`);
+  console.log("Database seed completed successfully");
 }
 
 main().finally(async () => prisma.$disconnect());

@@ -1,5 +1,6 @@
 import { DecisionTree, Fault } from "./types";
 
+/** Initial symptoms that users can select to begin diagnosis */
 export const symptoms = [
   {
     "title": "MCB trips under load",
