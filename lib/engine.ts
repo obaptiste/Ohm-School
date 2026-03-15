@@ -26,6 +26,24 @@ const toValues = (raw: string | string[] | undefined): string[] => {
 
 const getOption = (node: DecisionNode, value: string) => node.options.find((opt) => opt.value === value);
 
+const normalizeFaultWeights = (weights?: Record<string, number>) => {
+  if (!weights) return "";
+  return Object.entries(weights)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([faultSlug, weight]) => `${faultSlug}:${weight}`)
+    .join("|");
+};
+
+const hasDistinctDiagnosticEffects = (node: DecisionNode) => {
+  if (node.questionType === "info" || node.options.length <= 1) return false;
+
+  const effectSignatures = new Set(
+    node.options.map((option) => `${normalizeFaultWeights(option.faultWeightAdjustments)}#${option.riskBoost ?? 0}#${option.urgentTrigger ? 1 : 0}`)
+  );
+
+  return effectSignatures.size > 1;
+};
+
 const rankFaults = (scores: Record<string, number>): RankedFault[] =>
   Object.entries(scores)
     .sort((a, b) => b[1] - a[1])
@@ -36,6 +54,8 @@ export function scoreFaultsFromAnswers(tree: DecisionTree, answers: AnswerMap): 
   const reasons: Record<string, string[]> = {};
 
   for (const node of tree.nodes) {
+    if (!hasDistinctDiagnosticEffects(node)) continue;
+
     const values = toValues(answers[node.key]);
     for (const value of values) {
       const option = getOption(node, value);
@@ -56,6 +76,8 @@ export function detectUrgentEscalation(tree: DecisionTree, answers: AnswerMap) {
   const triggers: string[] = [];
 
   for (const node of tree.nodes) {
+    if (!hasDistinctDiagnosticEffects(node)) continue;
+
     const values = toValues(answers[node.key]);
     for (const value of values) {
       const option = getOption(node, value);
@@ -71,6 +93,8 @@ export function computeRiskLevel(tree: DecisionTree, answers: AnswerMap): { risk
   let riskScore = 0;
 
   for (const node of tree.nodes) {
+    if (!hasDistinctDiagnosticEffects(node)) continue;
+
     const values = toValues(answers[node.key]);
     for (const value of values) {
       const option = getOption(node, value);
@@ -94,11 +118,17 @@ export function chooseNextQuestion(
   if (!node) return undefined;
 
   const evaluatedAnswers = selectedAnswer ? [selectedAnswer] : toValues(answers[currentNodeKey]);
+  let selectedTerminalOption = false;
 
   for (const answer of evaluatedAnswers) {
     const option = getOption(node, answer);
     if (option?.nextNodeKey) return option.nextNodeKey;
+    if (option && !option.nextNodeKey) {
+      selectedTerminalOption = true;
+    }
   }
+
+  if (selectedTerminalOption) return undefined;
 
   return tree.nodes.find((candidate) => !answers[candidate.key])?.key;
 }
