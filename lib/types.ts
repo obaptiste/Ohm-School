@@ -48,8 +48,10 @@ export type Fault = {
   commonSymptoms: string[];
   likelyCauses: string[];
   safeChecks: string[];
+  escalationRules: string[];
   escalationGuidance: string;
   electricianTestsNext: string[];
   educationalExplanation: string;
+  relatedFaultSlugs: string[];
   tags: string[];
 };
