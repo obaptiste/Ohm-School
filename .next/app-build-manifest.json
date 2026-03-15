@@ -1,0 +1,74 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/app/_not-found/page-b0b5a35a0eddc478.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/css/1260927a68038049.css",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/layout-297f2771e932c791.js"
+    ],
+    "/diagnose/[symptomSlug]/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/879-f0ceefb482b14d82.js",
+      "static/chunks/app/diagnose/[symptomSlug]/page-e936aec4a8b3cbf3.js"
+    ],
+    "/library/[faultSlug]/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/app/library/[faultSlug]/page-d020cb7d6d9e28ed.js"
+    ],
+    "/library/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/library/page-21eab686e52d6bcf.js"
+    ],
+    "/diagnose/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/diagnose/page-21eab686e52d6bcf.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/page-21eab686e52d6bcf.js"
+    ],
+    "/tutor/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/app/tutor/page-d020cb7d6d9e28ed.js"
+    ],
+    "/admin/seeds/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-ebd51be49873d76c.js",
+      "static/chunks/main-app-7bc992d1df8f0798.js",
+      "static/chunks/app/admin/seeds/page-d020cb7d6d9e28ed.js"
+    ]
+  }
+}
