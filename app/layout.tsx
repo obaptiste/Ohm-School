@@ -21,6 +21,7 @@ export const metadata = {
 const navigation = [
   { href: "/diagnose", label: "Diagnosis studio" },
   { href: "/library", label: "Fault atlas" },
+  { href: "/wiring-diagrams", label: "Wiring diagrams" },
   { href: "/tutor", label: "Tutor console" },
   { href: "/admin/seeds", label: "Admin seeds" }
 ];
